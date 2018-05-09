@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/layout_default'">
+
+<head>
+<title th:text="${apostador.novo ? 'Cadastro' : 'Atualização'}"></title>
+</head>
+<body>
+
+	<section layout:fragment="content">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1
+					th:text="${apostador.novo ? 'Cadastro de apostador' : 'Atualização de apostador'}"></h1>
+			</div>
+		</div>
+
+		<form id="form-apostador" method="POST"
+			class="form-vertical  js-form-loading" th:object="${apostador}"
+			th:action="${apostador.novo} ? @{/apostadores/novo} : @{/apostadores/{id}(id=${apostador.id})}">
+
+			<input type="hidden" th:field="*{id}" />
+
+			<div class="container-fluid">
+
+				<div class="alert alert-dismissible fade in"
+					th:if="${!#strings.isEmpty(mensagem)}"
+					th:classappend="${#strings.containsIgnoreCase(mensagem, 'erro') ? 'alert-danger' : 'alert-success'}">
+					<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong th:text="${#strings.replace(mensagem, 'Erro! ', '')}"></strong>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações gerais</h3>
+					</div>
+
+					<div class="panel-body">
+
+						<div class="row">
+							<div class="col-sm-4 form-group js-validate"
+								th:classappend="${#fields.hasErrors('nome')} ? has-error">
+								<label class="control-label" for="nome">Nome:</label> <input
+									id="nome" th:field="*{nome}" class="form-control" name="nome"
+									type="text" /> <span th:if="${#fields.hasErrors('nome')}"
+									class="help-block">Campo obrigatório</span>
+							</div>
+
+							<div class="col-sm-3 form-group js-validate" th:classappend="${#fields.hasErrors('times')} ? 'has-error'">
+								<label class="control-label" for="times">Times:</label> <select id="times" name="times"
+									class="form-control selectpicker select-times" multiple="multiple" data-max-options="5" th:field="*{times}">
+									<option th:each="tm : ${times}" th:value="${tm}"
+										th:text="${tm.descricao}"></option>
+								</select> <span th:if="${#fields.hasErrors('times')}" class="help-block">Campo
+									obrigatório</span>
+							</div>
+
+							<div class="col-sm-4 js-validate"
+								th:classappend="${#fields.hasErrors('grupo')} ? 'has-error'">
+								<label class="control-label" for="grupo">Grupo:</label> <select
+									id="grupo" class="form-control" name="grupo"
+									th:field="*{grupo}">
+									<option value="">Selecione</option>
+									<option th:each="gp : ${grupos}" th:value="${gp}"
+										th:text="${gp.descricao}"></option>
+								</select> <span th:if="${#fields.hasErrors('grupo')}" class="help-block">Campo
+									obrigatório</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group container-fluid">
+				<button class="btn  btn-success" type="submit"
+					th:text="${apostador.novo ? 'Salvar' : 'Atualizar'}"></button>
+				<a id="deleteApostador" class="btn btn-danger"
+					th:if="${!apostador.novo}">Remover</a> <a href="/apostadores"
+					class="btn  btn-primary">Cancelar</a>
+			</div>
+
+		</form>
+
+		<form id="form-delete"
+			th:action="@{/apostadores/{id}(id=${apostador.id})}" method="POST">
+			<input type="hidden" name="_method" value="DELETE" />
+		</form>
+
+	</section>
+
+	<th:block layout:fragment="js-extra">
+		
+		<script>
+		$(document).ready(function() {
+			$('#times').on('click change', function (e) {
+				console.log("DDD");
+			$('ul[role="listbox"]').css({"max-height":"200px", "overflow":"scroll"});
+			});
+		});
+		</script>
+	</th:block>
+
+</body>
+</html>

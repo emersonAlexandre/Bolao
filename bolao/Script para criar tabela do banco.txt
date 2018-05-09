@@ -1,0 +1,10 @@
+Use bolao;
+
+create table if not exists apostador (
+	id bigint not null auto_increment,
+	nome varchar(100) not null,
+	times varchar(255) not null,
+	grupo varchar(7) not null,
+	pontuacao int,
+	primary key (id)
+);

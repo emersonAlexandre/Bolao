@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/layout_default'">
+
+<head>
+<title>Apostadores</title>
+</head>
+<body>
+
+	<section layout:fragment="content">
+
+		<div class="page-header container-fluid">
+			<div class="row">
+				<div class="col-xs-8">
+					<h1>Lista de apostadores</h1>
+				</div>
+				
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a id="gerar-ranking" class="btn btn-success">
+							<i class="fa fa-cog"></i> <span
+							class="hidden-xs  hidden-sm">Gerar Ranking</span>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a id="createApostador" class="btn btn-primary" href="/apostadores/novo">
+							<i class="fa  fa-plus-circle"></i> <span
+							class="hidden-xs  hidden-sm">Novo Apostador</span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="container-fluid">
+
+			<div class="alert alert-dismissible fade in"
+				th:if="${!#strings.isEmpty(mensagem)}"
+				th:classappend="${#strings.containsIgnoreCase(mensagem, 'erro') ? 'alert-danger' : 'alert-success'}">
+				<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong th:text="${#strings.replace(mensagem, 'erro', '')}"></strong>
+			</div>
+
+			<div class="table-responsive">
+				<table id="tabela-apostadores"
+					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead class="aw-table-header-solid">
+
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Times</th>
+							<th>Grupo</th>
+							<th>Pontuação</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody id="tb-atributos-data">
+						<tr th:each="apostador : ${apostadores}">
+							<td th:text="${apostador.id}"></td>
+							<td th:text="${apostador.nome}"></td>
+							<td th:text="${apostador.times}"></td>
+							<td th:text="${apostador.grupo.descricao}"></td>
+							<td th:text="${apostador.pontuacao}"></td>
+							<td class="table-pesq-produto-col-acoes"><a id="link_edit"
+								class="btn  btn-primary btn-xs sig-cursor sig-underline js-tooltip"
+								data-toggle="tooltip" title="Editar apostador"
+								th:href="@{/apostadores/{id}(id=${apostador.id})}"><i
+									class="fa fa-pencil" aria-hidden="true"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+	<th:block layout:fragment="js-extra">
+		<script th:src="@{/js/bolao/bolao.js}"></script>
+	</th:block>
+	
+</body>
+</html>

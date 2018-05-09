@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- <link rel="icon" th:href="@{/images/beer.png}"/> -->
+<title>Bolão</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/vendors.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bolao.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/application.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/vendors/jquerydatatable/dataTables.bootstrap4.min.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap-select.css}"/>
+
+</head>
+<body>
+
+	<div class="aw-layout-page">
+
+		<div th:replace="layout/fragments/navbar :: navbar"></div>
+
+		<div th:replace="layout/fragments/menu :: menu"></div>
+
+		<section class="aw-layout-content  js-content"
+			layout:fragment="content"></section>
+
+		<div th:replace="layout/fragments/footer :: footer"></div>
+
+	</div>
+
+	<script th:src="@{/js/template/vendors.js}"></script>
+	<script th:src="@{/js/template/bolao.js}"></script>
+	<script th:src="@{/vendors/jquerydatatable/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/vendors/jquerydatatable/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/vendors/jquery-validator/jquery.validate.js}"></script>
+	<script th:src="@{/vendors/jquerymask/jquery.mask.js}"></script>
+	<script th:src="@{/js/bolao-config-mask.js}"></script>
+	<script th:src="@{/js/bolao-tableconfig.js}"></script>
+	<script th:src="@{/js/bootstrap-select.js}"></script>
+	<script th:src="@{/js/bootstrap-select-with-thumbnail.js}"></script>
+	
+	<th:block layout:fragment="js-extra"></th:block>
+</body>
+</html>
