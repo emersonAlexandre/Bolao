@@ -31,9 +31,9 @@ public class TabelaSerieAPage{
 		return times;
 	}
 
-	public static void main(String[] args) {
-		TabelaSerieAPage page = new TabelaSerieAPage();
-		System.out.println(page.getResult());
-	}
+//	public static void main(String[] args) {
+//		TabelaSerieAPage page = new TabelaSerieAPage();
+//		System.out.println(page.getResult());
+//	}
 
 }

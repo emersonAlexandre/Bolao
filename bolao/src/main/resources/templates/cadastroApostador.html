@@ -23,6 +23,8 @@
 			th:action="${apostador.novo} ? @{/apostadores/novo} : @{/apostadores/{id}(id=${apostador.id})}">
 
 			<input type="hidden" th:field="*{id}" />
+			
+			<input id="apostador-id" type="hidden" th:field="*{id}" />
 
 			<div class="container-fluid">
 
@@ -92,7 +94,7 @@
 	</section>
 
 	<th:block layout:fragment="js-extra">
-		
+		<script th:src="@{/js/bolao/bolao.js}"></script>
 		<script>
 		$(document).ready(function() {
 			$('#times').on('click change', function (e) {

@@ -104,5 +104,10 @@ public class ApostadorController {
 	public @ResponseBody List<Time> buscarTimes() {
 		return page.getResult();
 	}
+	
+	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)
+	public @ResponseBody Apostador buscarApostadorPorId(@PathVariable("id") Long id) {
+		return repository.findOne(id);
+	}
 
 }
