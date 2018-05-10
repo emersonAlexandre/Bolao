@@ -17,23 +17,18 @@ Bolao.CadastroOuEdicaoApostador = (function() {
 		this.btnDelete = $('#deleteApostador');
 		this.btnEdit = $('#link_edit');
 		this.formDelete = $('#form-delete');
-//		this.btnGenerate = $('#gerar-ranking');
-//		this.urlTimes = '/apostadores/listatimes';
 		this.urlGetApostador = '/apostadores/getApostador';
-//		this.listaTimes = [];
 		this.selectTimes = $('#times');
-//		this.tabela = document.getElementById('tabela-apostadores').getElementsByTagName('tbody')[0];
 	};
 
 	/**
 	 * Função que é inicializada assim que a página que está utilizando este arquivo js, é acessada, onde nela contém uma função que é acionada conforme hà mudanças no select de estados, e outra que é acionada no momento em que o botão remover é clicado
 	 */
 	CadastroOuEdicaoApostador.prototype.iniciar = function() {
-//		this.btnDelete.on('click', openConfirmaRemocao.bind(this));
-//		this.btnGenerate.on('click', generatePunctuation.bind(this));
+		this.btnDelete.on('click', openConfirmaRemocao.bind(this));
 		setarMultipleSelect(this);
 	}
-	
+
 	/**
 	 * Função responsável por abrir o modal de confirmação de remoção
 	 */
@@ -60,16 +55,14 @@ Bolao.CadastroOuEdicaoApostador = (function() {
 			}
 		});
 	};
-	
+
 	function setarMultipleSelect(){
-		console.log("passou");
-		if(!document.getElementById("apostador-id").value.isEmpty){
+		if(document.getElementById("apostador-id").value != ""){
 			getApostador(this);
 		}
 	};
-	
+
 	function getApostador() {
-		console.log("passou");
 		$.ajax({
 			dataType: 'json',
 			url: "/apostadores/getApostador/" + document.getElementById("apostador-id").value,
@@ -77,39 +70,17 @@ Bolao.CadastroOuEdicaoApostador = (function() {
 			success: successApostador.bind(this),
 		});
 	};
-	
-//	function generatePunctuation() {
-//		$.ajax({
-//			dataType: 'json',
-//			url: this.urlTimes,
-//			method: 'GET',
-//			success: sucessTimes.bind(this),
-//		});
-//	};
 
-	/**
-	 * Função que é responsável por popular o select de cidades na página cadastroBar.html conforme a lista de cidades em formato JSON que recebe por parâmetro
-	 */
-//	function sucessTimes(data) {
-//
-//		this.listaTimes = data;
-//		
-//		var teams = [];
-//		
-//		alert(this.tabela.rows);
-//
-//		for (var i = 0; i < this.listaTimes.length; i++) {
-//			
-//			this.selectCidade.append('<option value="' + this.listaCidade[i].id + '">' + this.listaCidade[i].nome + '</option>');
-//		}
-//
-//	};
-	
 	function successApostador(data) {
 		var apostador = data;
 		var times = apostador.times.split(",");
-		
-		console.log(apostador.times);
+		for(i = 0; i < times.length; i++){
+			for(j = 0; j < document.getElementById("times").options.length; j++){
+				if(document.getElementById("times").options[j].value == times[i]){
+					document.getElementById("times").options[j].selected = true;
+				}
+			}
+		}
 
 	};
 

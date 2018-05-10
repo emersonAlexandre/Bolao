@@ -77,6 +77,18 @@ public class ApostadorController {
 			return new ModelAndView("redirect:/apostadores");
 		}
 	}
+	
+	@RequestMapping(value = {"/atualizar"}, method = RequestMethod.POST)
+	public ModelAndView salvar(List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
+
+		for (Apostador apostador : apostadores) {
+			repository.save(apostador);
+		}
+		
+		model.addAttribute("mensagem", "Ranking gerado com sucesso!");
+		
+		return new ModelAndView("redirect:/apostadores");
+	}
 
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
@@ -100,9 +112,9 @@ public class ApostadorController {
 		return "redirect:/apostadores";
 	}
 	
-	@RequestMapping(value="/listatimes", method=RequestMethod.GET)
-	public @ResponseBody List<Time> buscarTimes() {
-		return page.getResult();
+	@RequestMapping(value="/listaApostadores", method=RequestMethod.GET)
+	public @ResponseBody List<Apostador> buscarApostadores() {
+		return service.buscarApostadores();
 	}
 	
 	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)

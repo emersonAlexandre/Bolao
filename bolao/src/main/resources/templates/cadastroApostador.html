@@ -55,7 +55,7 @@
 								<label class="control-label" for="times">Times:</label> <select id="times" name="times"
 									class="form-control selectpicker select-times" multiple="multiple" data-max-options="5" th:field="*{times}">
 									<option th:each="tm : ${times}" th:value="${tm}"
-										th:text="${tm.descricao}"></option>
+										th:text="${tm.descricao}" selected="selected"></option>
 								</select> <span th:if="${#fields.hasErrors('times')}" class="help-block">Campo
 									obrigatório</span>
 							</div>
@@ -94,7 +94,7 @@
 	</section>
 
 	<th:block layout:fragment="js-extra">
-		<script th:src="@{/js/bolao/bolao.js}"></script>
+		<!-- <script th:src="@{/js/bolao/bolao.js}"></script>
 		<script>
 		$(document).ready(function() {
 			$('#times').on('click change', function (e) {
@@ -102,7 +102,7 @@
 			$('ul[role="listbox"]').css({"max-height":"200px", "overflow":"scroll"});
 			});
 		});
-		</script>
+		</script> -->
 	</th:block>
 
 </body>
