@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.accenture.bolao.enums.Grupo;
 import br.com.accenture.bolao.enums.Times;
 import br.com.accenture.bolao.model.Apostador;
-import br.com.accenture.bolao.model.Time;
 import br.com.accenture.bolao.repository.ApostadorRepository;
 import br.com.accenture.bolao.scrap.config.pages.TabelaSerieAPage;
 import br.com.accenture.bolao.service.ApostadorService;
@@ -112,9 +111,9 @@ public class ApostadorController {
 		return "redirect:/apostadores";
 	}
 	
-	@RequestMapping(value="/listaApostadores", method=RequestMethod.GET)
+	@RequestMapping(value="/listaapostadores", method=RequestMethod.GET)
 	public @ResponseBody List<Apostador> buscarApostadores() {
-		return service.buscarApostadores();
+		return repository.findAll();
 	}
 	
 	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)
