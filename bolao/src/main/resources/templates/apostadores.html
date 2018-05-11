@@ -10,8 +10,12 @@
 <body>
 
 	<section layout:fragment="content">
+	
+		<div id="copy">
+			<iframe id="copia" src=""></iframe>
+		</div>
 		
-		<div id='copia' hidden="hidden"></div>
+		<!-- <div id='copia' hidden="hidden"></div>
 
 		<div class="page-header container-fluid">
 			<div class="row">
@@ -79,11 +83,11 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</div> -->
 	</section>
 	
 	<th:block layout:fragment="js-extra">
-		<!-- <script th:src="@{/js/bolao/apostadores.js}"></script> -->
+		<script th:src="@{/js/bolao/apostadores.js}"></script>
 	</th:block>
 	
 </body>

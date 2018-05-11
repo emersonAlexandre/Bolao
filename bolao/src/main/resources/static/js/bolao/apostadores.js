@@ -14,7 +14,7 @@ Bolao.ListaDeApostadores = (function() {
 	 * Referências aos componentes da página
 	 */
 	function ListaDeApostadores() {
-		this.btnGenerate = $('#gerar-ranking');
+//		this.btnGenerate = $('#gerar-ranking');
 		this.urlApostadores = '/apostadores/listaApostadores';
 		this.listaApostadores = [];
 	};
@@ -43,13 +43,14 @@ Bolao.ListaDeApostadores = (function() {
 	function pegarDadosDaPagina(){
 		$.ajax({
 			method: "GET",
-			url: "https://www.cbf.com.br/competicoes/brasileiro-serie-a/classificacao/2018#.WvH3mIjwbIV ",
+			url: "https://www.cbf.com.br/competicoes/brasileiro-serie-a/classificacao/2018#.WvH3mIjwbIV",
 			success: successGetDataSite.bind(this)
 		});
 	};
 	
 	function successGetDataSite(data){
-		$('#copia').html($(data).find('tbody').html());
+		$('#copia').attr('src', 'https://www.cbf.com.br/competicoes/brasileiro-serie-a/classificacao/2018#.WvH3mIjwbIV');
+		console.log(document.getElementsByClassName("table-striped").innerHTML.getElementsByTagName('tbody')[0]);
 	};
 	
 	function salvarApostadores(){
