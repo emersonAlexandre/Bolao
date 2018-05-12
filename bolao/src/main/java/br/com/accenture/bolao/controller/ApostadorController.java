@@ -1,5 +1,6 @@
 package br.com.accenture.bolao.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,10 +79,22 @@ public class ApostadorController {
 		}
 	}
 	
-	@RequestMapping(value = {"/atualizar"}, method = RequestMethod.POST)
-	public ModelAndView salvar(List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
-
+	@RequestMapping(value = "/atualizar", method = RequestMethod.POST)
+	public ModelAndView salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
 		for (Apostador apostador : apostadores) {
+			String times = "";
+			String[] array = apostador.getTimes().split(", ");
+			for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < Times.values().length; j++) {
+					if(Times.values()[j].getDescricao().equals(array[i])) {
+						times += Times.values()[j].toString();
+					}
+				}
+				if(i+1 != array.length) {
+					times += ",";
+				}
+			}
+			apostador.setTimes(times);
 			repository.save(apostador);
 		}
 		
@@ -113,7 +127,7 @@ public class ApostadorController {
 	
 	@RequestMapping(value="/listaapostadores", method=RequestMethod.GET)
 	public @ResponseBody List<Apostador> buscarApostadores() {
-		return repository.findAll();
+		return service.buscarApostadores();
 	}
 	
 	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)
