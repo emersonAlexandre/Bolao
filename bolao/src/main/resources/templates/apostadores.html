@@ -45,15 +45,20 @@
 		<div class="container-fluid">
 
 			<div class="alert alert-dismissible fade in"
-				th:if="${!#strings.isEmpty(mensagem)}"
-				th:classappend="${#strings.containsIgnoreCase(mensagem, 'erro') ? 'alert-danger' : 'alert-success'}">
+				th:if="${!#strings.isEmpty(message)}"
+				th:classappend="${#strings.containsIgnoreCase(message, 'erro') ? 'alert-danger' : 'alert-success'}">
 				<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong th:text="${#strings.replace(mensagem, 'erro', '')}"></strong>
+				<strong th:text="${#strings.replace(message, 'erro', '')}"></strong>
+			</div>
+			
+			<div id="componentmsg" class="alert alert-dismissible fade in hidden">
+				<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong id="msg"></strong>
 			</div>
 
 			<div class="table-responsive">
 				<table id="tabela-apostadores"
-					class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					class="table table-striped table-bordered table-hover table-condensed js-sticky-table">
 					<thead class="aw-table-header-solid">
 
 						<tr>
@@ -85,7 +90,7 @@
 	</section>
 	
 	<th:block layout:fragment="js-extra">
-		<script th:src="@{/js/bolao/apostadores.js}"></script>
+		<!-- <script th:src="@{/js/bolao/apostadores.js}"></script>
 		<script>
 			$.ajax({
 				  method: "GET",
@@ -96,7 +101,7 @@
 					$('#copia').html($(data).find('tbody').html());
 		
 				});
-		</script>
+		</script> -->
 	</th:block>
 	
 </body>

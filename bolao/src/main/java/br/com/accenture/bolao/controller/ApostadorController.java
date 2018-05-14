@@ -1,6 +1,5 @@
 package br.com.accenture.bolao.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,7 +33,7 @@ public class ApostadorController {
 
 	@Autowired
 	ApostadorService service;
-	
+
 	@Autowired
 	TabelaSerieAPage page;
 
@@ -66,11 +65,11 @@ public class ApostadorController {
 			msg += "Apostador salvo com sucesso";
 		}
 
-		attributes.addFlashAttribute("mensagem", msg);
+		attributes.addFlashAttribute("message", msg);
 
 		if (msg.contains("Erro")) {
 			model.addAttribute(apostador);
-			model.addAttribute("mensagem", msg);
+			model.addAttribute("message", msg);
 			return novo(apostador);
 		}
 
@@ -78,7 +77,7 @@ public class ApostadorController {
 			return new ModelAndView("redirect:/apostadores");
 		}
 	}
-	
+
 	@RequestMapping(value = "/atualizar", method = RequestMethod.POST)
 	public ModelAndView salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
 		for (Apostador apostador : apostadores) {
@@ -97,9 +96,9 @@ public class ApostadorController {
 			apostador.setTimes(times);
 			repository.save(apostador);
 		}
-		
-		model.addAttribute("mensagem", "Ranking gerado com sucesso!");
-		
+
+		model.addAttribute("message", "Ranking gerado com sucesso!");
+
 		return new ModelAndView("redirect:/apostadores");
 	}
 
@@ -121,15 +120,15 @@ public class ApostadorController {
 	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 		repository.delete(id);
-		attributes.addFlashAttribute("mensagem", "Apostador excluído com sucesso");
+		attributes.addFlashAttribute("message", "Apostador excluído com sucesso");
 		return "redirect:/apostadores";
 	}
-	
+
 	@RequestMapping(value="/listaapostadores", method=RequestMethod.GET)
 	public @ResponseBody List<Apostador> buscarApostadores() {
 		return service.buscarApostadores();
 	}
-	
+
 	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)
 	public @ResponseBody Apostador buscarApostadorPorId(@PathVariable("id") Long id) {
 		return repository.findOne(id);

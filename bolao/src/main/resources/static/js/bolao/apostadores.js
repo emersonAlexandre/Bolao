@@ -40,7 +40,6 @@ BomBar.CadastroOuEdicaoBar = (function() {
 	};
 	
 	function salvarApostadores(apostadores){
-		console.log(apostadores);
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
@@ -48,6 +47,16 @@ BomBar.CadastroOuEdicaoBar = (function() {
 			url : "/apostadores/atualizar",
 			data : JSON.stringify(apostadores),
 			dataType: 'text',
+			success: (function(){
+				location.reload();
+				setTimeout(function(){
+					$('#msg').text = "Ranking gerado com sucesso!";
+					$('#componentmsg').addClass('alert-success');
+					$('#componentmsg').removeClass('hidden');
+				}, 3000)
+				
+//				alert("Ranking gerado com sucesso!");
+			})
             });
 	};
 

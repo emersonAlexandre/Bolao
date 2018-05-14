@@ -32,6 +32,5 @@ var configTabela = {
 /**
  * Usando funçao que configura tabela para portugues.
  */
-$(document).ready(configTabela.dataTable('#tabela-jqueyDataTable'));
-$(document).ready(configTabela.dataTable('#tabela-jqueyDataTable1'));
+$(document).ready(configTabela.dataTable('#tabela-apostadores'));
 

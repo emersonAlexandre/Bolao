@@ -1037,15 +1037,15 @@
           }
 
           $menu.css({
-            'max-height': menuHeight + 'px',
-            'overflow': 'hidden',
+            'max-height': '130px',
+            'overflow-y': 'scroll',
             'min-height': minHeight + headerHeight + searchHeight + actionsHeight + doneButtonHeight + 'px'
           });
-          $menuInner.css({
-            'max-height': menuHeight - headerHeight - searchHeight - actionsHeight - doneButtonHeight - menuPadding.vert + 'px',
-            'overflow-y': 'auto',
-            'min-height': Math.max(minHeight - menuPadding.vert, 0) + 'px'
-          });
+//          $menuInner.css({
+//            'max-height': '50px',
+//            'overflow-y': 'auto',
+//            'min-height': Math.max(minHeight - menuPadding.vert, 0) + 'px'
+//          });
         };
         getSize();
         this.$searchbox.off('input.getSize propertychange.getSize').on('input.getSize propertychange.getSize', getSize);
@@ -1066,16 +1066,16 @@
           //noinspection JSUnusedAssignment
           this.$newElement.toggleClass('dropup', selectOffsetTop > selectOffsetBot && (menuHeight - menuExtras.vert) < getHeight);
         }
-        $menu.css({
-          'max-height': menuHeight + headerHeight + searchHeight + actionsHeight + doneButtonHeight + 'px',
-          'overflow': 'hidden',
-          'min-height': ''
-        });
-        $menuInner.css({
-          'max-height': menuHeight - menuPadding.vert + 'px',
-          'overflow-y': 'auto',
-          'min-height': ''
-        });
+//        $menu.css({
+//          'max-height': '50px',
+//          'overflow-y': 'scroll',
+//          'min-height': ''
+//        });
+//        $menuInner.css({
+//          'max-height': '50px',
+//          'overflow-y': 'scroll',
+//          'min-height': ''
+//        });
       }
     },
 
