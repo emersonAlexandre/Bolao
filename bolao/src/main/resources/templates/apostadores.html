@@ -51,9 +51,8 @@
 				<strong th:text="${#strings.replace(message, 'erro', '')}"></strong>
 			</div>
 			
-			<div id="componentmsg" class="alert alert-dismissible fade in hidden">
-				<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong id="msg"></strong>
+			<div id="componentmsg" class="alert hidden" role="alert">
+  				<strong id="msg"></strong>
 			</div>
 
 			<div class="table-responsive">
@@ -90,7 +89,7 @@
 	</section>
 	
 	<th:block layout:fragment="js-extra">
-		<!-- <script th:src="@{/js/bolao/apostadores.js}"></script>
+		<script th:src="@{/js/bolao/apostadores.js}"></script>
 		<script>
 			$.ajax({
 				  method: "GET",
@@ -101,7 +100,7 @@
 					$('#copia').html($(data).find('tbody').html());
 		
 				});
-		</script> -->
+		</script>
 	</th:block>
 	
 </body>

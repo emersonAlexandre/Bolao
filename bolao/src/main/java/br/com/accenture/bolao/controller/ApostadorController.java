@@ -53,8 +53,6 @@ public class ApostadorController {
 			return novo(apostador);
 		}
 
-		repository.save(apostador);
-
 		String msg = "";
 
 		if (apostador.getId() != null) {
@@ -64,6 +62,8 @@ public class ApostadorController {
 		else {
 			msg += "Apostador salvo com sucesso";
 		}
+		
+		repository.save(apostador);
 
 		attributes.addFlashAttribute("message", msg);
 
@@ -79,27 +79,9 @@ public class ApostadorController {
 	}
 
 	@RequestMapping(value = "/atualizar", method = RequestMethod.POST)
-	public ModelAndView salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
-		for (Apostador apostador : apostadores) {
-			String times = "";
-			String[] array = apostador.getTimes().split(", ");
-			for (int i = 0; i < array.length; i++) {
-				for (int j = 0; j < Times.values().length; j++) {
-					if(Times.values()[j].getDescricao().equals(array[i])) {
-						times += Times.values()[j].toString();
-					}
-				}
-				if(i+1 != array.length) {
-					times += ",";
-				}
-			}
-			apostador.setTimes(times);
-			repository.save(apostador);
-		}
+	public void salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
+		service.atualizarApostadores(apostadores);
 
-		model.addAttribute("message", "Ranking gerado com sucesso!");
-
-		return new ModelAndView("redirect:/apostadores");
 	}
 
 	@GetMapping("/{id}")

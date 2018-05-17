@@ -31,12 +31,22 @@ BomBar.CadastroOuEdicaoBar = (function() {
 	 * Função responsável por realizar uma requisição GET via AJAX para obter uma lista de cidades em formato JSON, passando por parâmetro na requisição um id referente ao estado que foi selecionado no select da página
 	 */
 	function getApostadores() {
-		$.ajax({
-			dataType: 'json',
-			url: this.urlApostadores,
-			method: 'GET',
-			success: sucessApostador.bind(this),
-		});
+		var tdPoint = document.evaluate('//*[@id="copia"]/tr[2]/td[4]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+		console.log(tdPoint == null);
+		if (tdPoint != null){
+			$.ajax({
+				dataType: 'json',
+				url: this.urlApostadores,
+				method: 'GET',
+				success: sucessApostador.bind(this),
+			});
+		}
+		
+		else{
+			$('#msg').html("Não foi possível gerar o ranking!");
+			$('#componentmsg').addClass('alert-danger');
+			$('#componentmsg').removeClass('hidden');
+		}
 	};
 	
 	function salvarApostadores(apostadores){
@@ -48,12 +58,12 @@ BomBar.CadastroOuEdicaoBar = (function() {
 			data : JSON.stringify(apostadores),
 			dataType: 'text',
 			success: (function(){
-				location.reload();
+				$('#msg').html("Ranking gerado com sucesso!");
+				$('#componentmsg').addClass('alert-success');
+				$('#componentmsg').removeClass('hidden');
 				setTimeout(function(){
-					$('#msg').text = "Ranking gerado com sucesso!";
-					$('#componentmsg').addClass('alert-success');
-					$('#componentmsg').removeClass('hidden');
-				}, 3000)
+					location.reload();
+				}, 1000)
 				
 //				alert("Ranking gerado com sucesso!");
 			})

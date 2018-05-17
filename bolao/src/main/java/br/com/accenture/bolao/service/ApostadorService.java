@@ -32,5 +32,24 @@ public class ApostadorService {
 		}
 		return apostadores;
 	}
+	
+	public void atualizarApostadores(List<Apostador> apostadores) {
+		for (Apostador apostador : apostadores) {
+			String times = "";
+			String[] array = apostador.getTimes().split(", ");
+			for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < Times.values().length; j++) {
+					if(Times.values()[j].getDescricao().equals(array[i])) {
+						times += Times.values()[j].toString();
+					}
+				}
+				if(i+1 != array.length) {
+					times += ",";
+				}
+			}
+			apostador.setTimes(times);
+			repository.save(apostador);
+		}
+	}
 
 }
