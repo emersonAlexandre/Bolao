@@ -29,10 +29,10 @@
 			<div class="container-fluid">
 
 				<div class="alert alert-dismissible fade in"
-					th:if="${!#strings.isEmpty(mensagem)}"
-					th:classappend="${#strings.containsIgnoreCase(mensagem, 'erro') ? 'alert-danger' : 'alert-success'}">
+					th:if="${!#strings.isEmpty(message)}"
+					th:classappend="${#strings.containsIgnoreCase(message, 'erro') ? 'alert-danger' : 'alert-success'}">
 					<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong th:text="${#strings.replace(mensagem, 'Erro! ', '')}"></strong>
+					<strong th:text="${#strings.replace(message, 'Erro! ', '')}"></strong>
 				</div>
 
 				<div class="panel panel-default">

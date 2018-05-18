@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.accenture.bolao.enums.Grupo;
 import br.com.accenture.bolao.enums.Times;
+import br.com.accenture.bolao.exception.ApostadorJaExisteException;
 import br.com.accenture.bolao.model.Apostador;
 import br.com.accenture.bolao.repository.ApostadorRepository;
 import br.com.accenture.bolao.scrap.config.pages.TabelaSerieAPage;
@@ -46,7 +47,8 @@ public class ApostadorController {
 	}
 
 	@RequestMapping(value = { "/novo", "{\\d+}" }, method = RequestMethod.POST)
-	public ModelAndView salvar(@Valid Apostador apostador, BindingResult result, Model model, RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Apostador apostador, BindingResult result, Model model,
+			RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			model.addAttribute(apostador);
@@ -57,13 +59,16 @@ public class ApostadorController {
 
 		if (apostador.getId() != null) {
 			msg += "Apostador atualizado com sucesso";
-		}
-
-		else {
+		} else {
 			msg += "Apostador salvo com sucesso";
 		}
-		
-		repository.save(apostador);
+
+		try {
+			service.salvar(apostador, attributes);
+		} catch (ApostadorJaExisteException e) {
+			msg = "";
+			msg += "Erro! " + e.getMessage();
+		}
 
 		attributes.addFlashAttribute("message", msg);
 
@@ -79,7 +84,8 @@ public class ApostadorController {
 	}
 
 	@RequestMapping(value = "/atualizar", method = RequestMethod.POST)
-	public void salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model, RedirectAttributes attributes) {
+	public void salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model,
+			RedirectAttributes attributes) {
 		service.atualizarApostadores(apostadores);
 
 	}
@@ -99,19 +105,19 @@ public class ApostadorController {
 		return mv;
 	}
 
-	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 		repository.delete(id);
 		attributes.addFlashAttribute("message", "Apostador excluído com sucesso");
 		return "redirect:/apostadores";
 	}
 
-	@RequestMapping(value="/listaapostadores", method=RequestMethod.GET)
+	@RequestMapping(value = "/listaapostadores", method = RequestMethod.GET)
 	public @ResponseBody List<Apostador> buscarApostadores() {
 		return service.buscarApostadores();
 	}
 
-	@RequestMapping(value="/getApostador/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/getApostador/{id}", method = RequestMethod.GET)
 	public @ResponseBody Apostador buscarApostadorPorId(@PathVariable("id") Long id) {
 		return repository.findOne(id);
 	}
