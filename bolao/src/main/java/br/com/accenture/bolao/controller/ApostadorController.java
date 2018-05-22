@@ -83,6 +83,7 @@ public class ApostadorController {
 		}
 	}
 
+	@ResponseBody	
 	@RequestMapping(value = "/atualizar", method = RequestMethod.POST)
 	public void salvar(@RequestBody List<Apostador> apostadores, BindingResult result, Model model,
 			RedirectAttributes attributes) {

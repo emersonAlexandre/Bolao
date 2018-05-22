@@ -31,8 +31,7 @@ BomBar.CadastroOuEdicaoBar = (function() {
 	 * Função responsável por realizar uma requisição GET via AJAX para obter uma lista de cidades em formato JSON, passando por parâmetro na requisição um id referente ao estado que foi selecionado no select da página
 	 */
 	function getApostadores() {
-		var tdPoint = document.evaluate('//*[@id="copia"]/tr[2]/td[4]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-		console.log(tdPoint == null);
+		var tdPoint = document.evaluate('//*[@id="copia"]/tr[1]/th', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 		if (tdPoint != null){
 			$.ajax({
 				dataType: 'json',
@@ -44,6 +43,7 @@ BomBar.CadastroOuEdicaoBar = (function() {
 		
 		else{
 			$('#msg').html("Não foi possível gerar o ranking!");
+			$('#componentmsg').removeClass('alert-success');
 			$('#componentmsg').addClass('alert-danger');
 			$('#componentmsg').removeClass('hidden');
 		}
@@ -59,15 +59,15 @@ BomBar.CadastroOuEdicaoBar = (function() {
 			dataType: 'text',
 			success: (function(){
 				$('#msg').html("Ranking gerado com sucesso!");
+				$('#componentmsg').removeClass('alert-danger');
 				$('#componentmsg').addClass('alert-success');
 				$('#componentmsg').removeClass('hidden');
 				setTimeout(function(){
 					location.reload();
 				}, 1000)
 				
-//				alert("Ranking gerado com sucesso!");
 			})
-            });
+		});
 	};
 
 	/**
@@ -87,10 +87,11 @@ BomBar.CadastroOuEdicaoBar = (function() {
 	};
 	
 	function pegarTimesDaSerieA(teams){
-		for (i = 2; i <= 21; i++){
-			var nomeTime = document.evaluate('//*[@id="copia"]/tr[' + i + ']/td[3]/span', document, null, XPathResult.STRING_TYPE, null);
-			var pointTeam = document.evaluate('//*[@id="copia"]/tr[' + i + ']/td[4]', document, null, XPathResult.NUMBER_TYPE, null);
-			var array = nomeTime.stringValue.trim().split(" -");
+		var cont= 1;
+		while(cont <= 39){
+			var nomeTime = document.evaluate('//*[@id="copia"]/tr[' + cont + ']/td[1]/span[2]', document, null, XPathResult.STRING_TYPE, null);
+			var pointTeam = document.evaluate('//*[@id="copia"]/tr[' + cont + ']/th', document, null, XPathResult.NUMBER_TYPE, null);
+			var array = nomeTime.stringValue.trim().split(" - ");
 			var nameTeam;
 
 			if(nomeTime.stringValue.includes("Atlético") || nomeTime.stringValue.includes("América")){
@@ -100,6 +101,8 @@ BomBar.CadastroOuEdicaoBar = (function() {
 			}
 
 			teams.push({name : nameTeam, point : pointTeam.numberValue});
+			
+			cont += 2;
 		}
 	};
 	

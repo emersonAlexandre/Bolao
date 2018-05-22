@@ -51,7 +51,7 @@
 									class="help-block">Campo obrigatório</span>
 							</div>
 
-							<div class="col-sm-3 form-group js-validate" th:classappend="${#fields.hasErrors('times')} ? 'has-error'">
+							<div class="col-sm-4 form-group js-validate" th:classappend="${#fields.hasErrors('times')} ? 'has-error'">
 								<label class="control-label" for="times">Times:</label> <select id="times" name="times"
 									class="form-control selectpicker select-times" multiple="multiple" data-max-options="5" th:field="*{times}">
 									<option th:each="tm : ${times}" th:value="${tm}"
@@ -60,7 +60,7 @@
 									obrigatório</span>
 							</div>
 
-							<div class="col-sm-4 js-validate"
+							<div class="col-sm-2 js-validate"
 								th:classappend="${#fields.hasErrors('grupo')} ? 'has-error'">
 								<label class="control-label" for="grupo">Grupo:</label> <select
 									id="grupo" class="form-control" name="grupo"
@@ -70,6 +70,12 @@
 										th:text="${gp.descricao}"></option>
 								</select> <span th:if="${#fields.hasErrors('grupo')}" class="help-block">Campo
 									obrigatório</span>
+							</div>
+							
+							<div class="col-sm-2">
+								<label for="pontuacao">Pontuação:</label> <input
+									id="pontuacao" th:field="*{pontuacao}" class="form-control" name="pontuacao"
+									type="number" readonly="readonly"/>
 							</div>
 						</div>
 					</div>

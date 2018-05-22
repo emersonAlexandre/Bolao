@@ -55,15 +55,25 @@ public class ApostadorService {
 	}
 
 	public void salvar(Apostador apostador, RedirectAttributes attributes) throws ApostadorJaExisteException {
-
-		for (Apostador apost : repository.findAll()) {
+		List<Apostador> apostadores = repository.findAll();
+		
+		if(apostador.getId() != null) {
+			for(int i = 0; i < apostadores.size(); i++) {
+				if(apostadores.get(i).getId() == apostador.getId()) {
+					apostadores.remove(i);
+					break;
+				}
+			}
+		}
+		
+		for (Apostador apost : apostadores) {
 			if (apostador.getNome().equalsIgnoreCase(apost.getNome())) {
 				if (apost.getGrupo().equals(apostador.getGrupo())) {
 					throw new ApostadorJaExisteException("Já existe um apostador cadastrado no mesmo grupo!");
 				}
 			}
 		}
-
+		
 		repository.save(apostador);
 	}
 }
